@@ -12,9 +12,9 @@
             "label": "save and compile for C++",
             "command": "g++",
             "args": [
-                "${file}",
+                "'${file}'",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                "'${fileDirname}/${fileBasenameNoExtension}'"
             ],
             "group": "build",
             //컴파일시 에러를 편집기에 반영
