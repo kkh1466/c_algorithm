@@ -16,12 +16,7 @@ vector<int> graph[9] = {  //주어진 그래프
 };
 
 void dfs(int x){
-    visited[x]=1;
-    // cout << x << " ";
-    for(int i=0; i<graph[x].size();i++){
-        int next = graph[x][i];    //x라는 정점에 연결된 인접정점을 y변수에 저장
-        if(!visited[next]) dfs(next);
-    }
+
 }
 
 int main(){
@@ -29,3 +24,20 @@ int main(){
     return 0;
 } 
 
+
+
+
+
+
+
+
+
+
+/*
+visited[x]=1;
+    // cout << x << " ";
+    for(int i=0; i<graph[x].size();i++){
+        int next = graph[x][i];    //x라는 정점에 연결된 인접정점을 y변수에 저장
+        if(!visited[next]) dfs(next);
+    }
+*/

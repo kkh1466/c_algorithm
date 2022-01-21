@@ -1,65 +1,56 @@
 #include <iostream>
-#include <vector>
-#include <queue>
+#include <algorithm>
 using namespace std;
 
-vector<int> graph[20001];
-int visited[20001]{0};
-bool ans[6]{};
-int color = 1;
-bool result = true;
+int n, cnt, m;
+int A_size, B_size;
+int A[10000], B[10000];
+int visited[10001];
 
-void dfscolor(int a){
-	visited[a] = color;
-	for(int i = 0; i < graph[a].size(); i++){
-		int y = graph[a][i];
-		if(visited[y] == 0){
-            color = 3 - color;
-            dfscolor(y);
-        }
-	}
-}
+int main() {
 
-int main(){
-	int tn, n, m, a, b;
-  	cin>>tn;
-    for (int i = 0; i < tn; i++){
-        cin>>n>>m;
-        color = 1;
-        result = true;
-        for (int j = 0; j < m; j++){
-            cin>>a>>b;
-            graph[a].push_back(b);
-            graph[b].push_back(a);
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> m;
+        if (m > 0) {
+            A[A_size] = m;
+            A_size++;
         }
-        for (int j = 1; j <= n; j++){
-            if(visited[j] == 0){
-                dfscolor(j);
-            }
-        }
-
-        //for(int j=1; j<=n; j++) cout<<visited[j]<<" ";
-        bool breakall = false;
-        for (int u = 1; u <= n; u++){
-            for (int g = 0; g < graph[u].size(); g++){
-                if(visited[u] == visited[graph[u][g]]){
-                    breakall = true;
-                    result = false;
-                    break;
-                }
-            }
-            if(breakall) break;
-        }
-
-        ans[i] = result;
-        for (int j = 1; j <= n; j++){
-            graph[j].clear();
-            visited[j] = 0;
+        else {
+            B[B_size] = m;
+            B_size++;
         }
     }
-    for (int i = 0; i < tn; i++){
-        if(ans[i]==true)cout<<"YES"<<"\n";
-        else cout<<"NO"<<"\n";
+
+    sort(A, A + A_size);
+    sort(B, B + B_size);
+
+    for (int i = A_size - 1; i >= 0; i--) { //+계산
+        if (i == 0) {
+            cnt += A[i];
+            break;
+        }
+
+        if (A[i] * A[i - 1] > A[i] + A[i - 1]) {
+            cnt += A[i] * A[i - 1];
+            i -= 1;
+        }
+        else {
+            cnt += A[i];
+        }
     }
-	return 0;
+    cout<<cnt<<" ";
+
+    for (int i = 0; i < B_size; i++) { //-계산
+        if (B[i] * B[i + 1] > B[i] + B[i + 1]) {
+            cnt += B[i] * B[i + 1];
+            i += 1;
+        }
+        else {
+            cnt += B[i];
+        }
+    }
+
+    cout << endl;
+    cout << cnt;
 }
